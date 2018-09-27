@@ -8,3 +8,4 @@
 - Need to figure out how to remove duplicate tickets?  We haven't talked much about this, and it would mean that we need to compare to existing cases, but not those we have trained on.  So we will need to keep new cases separate from the ones we initially train on.
 - The ability to accept mislabeled complaints and use them in the next round of training.  This may have a consequence that we would need to build separate models for each entity since one entities classification of a complaint might be different than another entity, and they would continually clash.  Some ability to provide custom training on top.
 - Ability to recognize fake complaints - maybe just for a post-MIDS implementation as this could be huge amounts of work, however a "fake" class may be appropriate
+- Put in an I am not a robot on the submission page
