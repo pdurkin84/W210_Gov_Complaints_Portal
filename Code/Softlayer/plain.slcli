@@ -1,0 +1,10 @@
+datacenter=dal13
+private=False
+os=CENTOS_LATEST_64
+domain=w251.mids
+cpu=2
+memory=8192
+disk=100G
+billing=hourly
+key=w210key
+hostname=tobereplaced

@@ -1,0 +1,43 @@
+# Possible Complaint Categories
+
+- Planning
+	- Unlicensed construction
+	- Unsafe environment
+- Housing
+- Environment
+	- Hazardous waste
+	- Pollution
+- Arts and culture
+- Libraries
+- Enterprise and business
+- Police
+- Fire (presumably not reporting a fire through a complaints portal)
+	- Neighbor illegal fire
+	- Fire risks (flammable debris)
+	- Fire codes violated
+	- Damaged or unsafe fire equipment (e.g. blocked hydrant)
+	- Public building fire issues (e.g. sprinklers broken, alarms not working)
+- Streets (I see FixYourStreets actually linked on Irish council websites)
+	- Graffiti
+	- Leaks and drainage
+	- Litter and illegal dumping
+	- Road or path defects
+	- Street lighting
+- Other
+	- Noise, e.g. construction noise
+	- Neighbors doing things: parking, speeding, leaving garbage, noisy, dogs, threats, oil leaks, school parking, obstructing access
+	- Unauthorized signage
+	- abandoned cars, unlicensed cars
+	- Drug dealing or suspicious behavior
+	- Parking
+	- Overgrown vegetation
+	- Electricity
+	- Pollution
+	- Safety, building, roads, parks, etc. Barbecues, overcrowding
+	- Dangerous driving
+	- Dangerous behaviors
+	- Loitering, suspicious behavior
+	- J-Walking
+	- Health violations, like in restaurants
+	- building violations, 
+Aliens, drones, etc. we may need some catchment for things that may be joking or crazy, separate from unknowns

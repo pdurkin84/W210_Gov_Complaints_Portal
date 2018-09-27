@@ -1,0 +1,8 @@
+datacenter=dal13
+private=False
+os=CENTOS_LATEST_64
+domain=w251.mids
+flavor=AC1_8X60X25
+billing=hourly
+key=w210key
+hostname=tobereplaced
