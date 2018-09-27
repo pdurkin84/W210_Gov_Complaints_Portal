@@ -41,3 +41,7 @@
 	- Health violations, like in restaurants
 	- building violations, 
 	- Aliens, drones, etc. we may need some catchment for things that may be joking or crazy, separate from unknowns
+- Public transport
+	- Overcharging
+	- broken infrastructure or vandalism
+	- intimidation or threats while on transport
