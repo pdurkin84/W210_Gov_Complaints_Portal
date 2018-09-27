@@ -9,3 +9,6 @@
 - The ability to accept mislabeled complaints and use them in the next round of training.  This may have a consequence that we would need to build separate models for each entity since one entities classification of a complaint might be different than another entity, and they would continually clash.  Some ability to provide custom training on top.
 - Ability to recognize fake complaints - maybe just for a post-MIDS implementation as this could be huge amounts of work, however a "fake" class may be appropriate
 - Put in an I am not a robot on the submission page
+- Can we use mechanical turk to label?
+- Instead of classifying to match some entity we spoke about providing our own classifications and allowing an entity to then choose where to route the complaint based on the classification.  If we have a separate server just returning the classification then our app that does this is separate from the app that does the classication.
+- Use Cassandra for the database.  A relational DB like MySQL might be better as we can query based on non-keys, however Cassandra makes replication trivial, it's a lot more complicated with MySQL
