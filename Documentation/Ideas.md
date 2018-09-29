@@ -1,5 +1,17 @@
 # Place to put ideas for discussion
 
+### 29-Sept
+- What tools will we use?  There is a week of async on choosing tools.  We need tools for:
+	- Processes: codegiant, anything else?
+	- Implementation:
+		- Our model
+		- Our data stores
+		- Our interfaces
+		- Supporting infrastructure
+		- Do we want a public dns?
+- The project name?  Alternatives for government could be municipal, urban, services?  Alternatives for compaints could be notification...Municipal Services notification system?
+- What do we need to have prepare for our first presentation?
+
 ### 27-Sept
 
 - Should we create a separate web/REST servers for our model?  I have used the Stanford NLP server to do sentiment analysis, basically just install it as a webserver and interact with it over a REST API.  This would decouple our "complaint classification" from our UI and any other features or tools.  It abstracts the classification from our application and then could be something that is shipped separately.
