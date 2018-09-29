@@ -11,6 +11,12 @@
 		- Do we want a public dns?
 - The project name?  Alternatives for government could be municipal, urban, services?  Alternatives for compaints could be notification...Municipal Services notification system?
 - What do we need to have prepare for our first presentation?
+- What are the first tasks we need to get done to get the project rolling?
+	- We probably need to do an EDA
+	- How much more work required for our MVP?
+	- What are the metrics we can define for our products?
+	- What are our unknonwns and our assumptions?
+	- Are there any ethical considerations?
 
 ### 27-Sept
 
