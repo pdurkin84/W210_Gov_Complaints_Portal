@@ -6,4 +6,4 @@ flavor=AC1_8X60X25
 billing=hourly
 key=w210key,laptop
 hostname=tobereplaced
-#postinstall=http://10.187.254.196/InstallScripts/gpu.sh
+postinstall=http://10.187.254.196/InstallScripts/gpu.sh
