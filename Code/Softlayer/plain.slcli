@@ -1,10 +1,11 @@
 datacenter=dal13
 private=False
-os=CENTOS_LATEST_64
-domain=w251.mids
+os=UBUNTU_LATEST_64
+domain=w210.mids
 cpu=2
 memory=8192
 disk=100G
 billing=hourly
-key=w210key
+key=w210key,laptop
 hostname=tobereplaced
+postinstall=http://10.187.254.196/InstallScripts/testscript.sh
