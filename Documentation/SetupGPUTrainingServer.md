@@ -48,11 +48,12 @@
 
 ## Deleting a server (with care, make sure it is the correct one)
 
-1. Get the id of the server with slcli:
+1. Make sure any code is checked in:)
+2. Get the id of the server with slcli:
 
         slcli vs list
 
-2. Make sure you have the correct id and then type:
+3. Make sure you have the correct id and then type:
 
         slcli vs cancel ID
 
