@@ -36,3 +36,4 @@ echo -e "Test tensorflow install with\npython models/tutorials/image/mnist/convo
 
 logger "W210: Installation completed, still need to run: /W210_Gov_Complaints_Portal/Code/Softlayer/install_cuda.sh"
 logger "W210: Installation completed, still need to run: /W210_Gov_Complaints_Portal/Code/Softlayer/install_iptables.sh"
+logger "W210: Completed stage 1 of installation"
