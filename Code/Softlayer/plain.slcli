@@ -6,6 +6,6 @@ cpu=2
 memory=8192
 disk=100G
 billing=hourly
-key=w210key,laptop
+key=w210key,laptop,alex,stan
 hostname=tobereplaced
 postinstall=http://10.187.254.196/InstallScripts/testscript.sh
