@@ -23,6 +23,8 @@ logger "W210: Completed FineTune"
 # Jupyterlab
 logger "W210: Installing JupyterLabs"
 python3 -m pip install --upgrade jupyterlab
+python3 -m pip install --upgrade pandas
+python3 -m pip install --upgrade scikit-learn
 
 # GIT
 logger "W210: Installing git and pulling in code"
