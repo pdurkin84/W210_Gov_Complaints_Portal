@@ -17,6 +17,7 @@ python3 -m pip install --upgrade tensorflow-gpu==1.10.1
 logger "W210: Installing FineTune"
 apt-get -y install libjpeg8-dev zlib1g-dev
 python3 -m pip install --upgrade finetune
+python3 -m spacy download en
 logger "W210: Completed FineTune"
 
 # Jupyterlab
