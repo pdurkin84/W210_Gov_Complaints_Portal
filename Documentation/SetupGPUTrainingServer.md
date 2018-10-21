@@ -25,8 +25,8 @@
 
 5. Run two more scripts to set up CUDA drivers and protect the server with a firewall
 
-        */W210_Gov_Complaints_Portal/Code/Softlayer/install_cuda.sh*
-        */W210_Gov_Complaints_Portal/Code/Softlayer/install_iptables.sh*
+        /W210_Gov_Complaints_Portal/Code/Softlayer/install_cuda.sh
+        /W210_Gov_Complaints_Portal/Code/Softlayer/install_iptables.sh
 	
 	These run on the command line so once they have completed control will be returned to the terminal.  These take a while, probably 20 minutes, however once it is done the software is all installed.  Go to the next section on using the server for details on how to get in and get started.
 
