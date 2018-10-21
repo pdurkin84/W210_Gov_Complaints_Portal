@@ -19,7 +19,7 @@
 	This prints out all the servers along with their public and private IP addresses.  Recorder the public address as you will need this to connect directly from home, however from the gateway you can simply ssh (passwordlessly) to the private address to continue the setup. 
 4. Check the progress of the installation.  Run the following, when this returns something the background installation of packages is complete.
 
-        grep "W210: Installation completed" /var/log/syslog
+        grep "W210: Completed stage 1 of installation" /var/log/syslog
 
     Note: It can take another 10-20 minutes to complete
 
