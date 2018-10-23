@@ -80,7 +80,8 @@
 			  	<div class="info-wrap">
 
 					<div class="container-contact100-form-btn">
-						<button class="contact100-form-btn">
+						<!--23/oct updated to call the handleclick function pauld-->
+						<button class="contact100-form-btn" onclick="handleclick()">
 							<span>
 								Submit
 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -94,7 +95,19 @@
 					    &nbsp;&nbsp;
 					    <select id="select_dialect"></select>
 				    </div>
-
+					<!--23/oct added pauld-->
+					<p>
+					<div id="returnclass-wrap">
+						<span id="returnclass-type" style="visibility: hidden">
+							nothing
+						</span>
+						<p>
+						<span id="returnclass-subtype" style="visibility: hidden">
+							nothing
+						</span>
+					</div>
+					<!--23/oct end pauld-->
+						
 				</div>
 
 		  	
@@ -103,6 +116,9 @@
 	</div>
 
 <script src="js/main.js"></script>
+<!--23/oct added pauld-->
+<script src="js/buddy311.js"></script>
+<!--23/oct end pauld-->
   
 </body>
 </html>
