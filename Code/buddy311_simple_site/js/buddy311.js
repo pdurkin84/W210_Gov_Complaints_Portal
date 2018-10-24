@@ -20,14 +20,14 @@ var buddy311buttonClick = function () {
 			console.log("The json value is : ", typeText);
 
 			var typeLocation = document.getElementById('returnclass-type');
-			var subtypeLocation = document.getElementById('returnclass-subtype');
-			typeLocation.innerHTML="<strong><font color=\"red\"> Type: </font></strong>" + typeText['complaintType'];
-			subtypeLocation.innerHTML="<strong> <font color=\"red\">Subtype: </font></strong>" + typeText['complaintSubtype'];
+			//var subtypeLocation = document.getElementById('returnclass-subtype');
+			typeLocation.innerHTML="<strong><font color=\"red\"> Type: </font></strong>" + typeText['service_code'];
+			//subtypeLocation.innerHTML="<strong> <font color=\"red\">Subtype: </font></strong>" + typeText['complaintSubtype'];
 			typeLocation.style.visibility = "visible";
-			subtypeLocation.style.visibility = "visible";
+			//subtypeLocation.style.visibility = "visible";
 		}
 	}
-	xhttp.open("POST", "http://localhost:31101/buddy311/v0.1/", true);
+	xhttp.open("POST", "http://169.63.3.115:31102/buddy311/v0.1/", true);
 	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send('{ "description":"' + results.innerText + '" }');
 }
