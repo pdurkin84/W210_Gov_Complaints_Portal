@@ -27,7 +27,7 @@ var buddy311buttonClick = function () {
 			//subtypeLocation.style.visibility = "visible";
 		}
 	}
-	xhttp.open("POST", "http://169.63.3.115:31102/buddy311/v0.1/", true);
+	xhttp.open("POST", "https://169.63.3.115:31102/buddy311/v0.1/", true);
 	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send('{ "description":"' + results.innerText + '" }');
 }

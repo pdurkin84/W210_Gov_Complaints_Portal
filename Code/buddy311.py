@@ -55,4 +55,4 @@ api.add_resource(buddy311, '/buddy311/v0.1/')
 
 # Enable debugging and set the port to 31101
 if __name__ == '__main__':
-	app.run(debug=True, port=31102, host='169.63.3.115')
+	app.run(debug=True, port=31102, host='169.63.3.115', ssl_context='adhoc')
