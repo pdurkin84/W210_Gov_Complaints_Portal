@@ -4,6 +4,6 @@ os=UBUNTU_16_64
 domain=w210.mids
 flavor=AC1_8X60X25
 billing=hourly
-key=w210key,laptop,alex,stan
+key=w210key,laptop,alex,stan,chris
 hostname=tobereplaced
 postinstall=http://10.187.254.196/InstallScripts/gpu.sh
