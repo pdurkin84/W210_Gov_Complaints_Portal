@@ -1,0 +1,70 @@
+ * Serving Flask app "buddy311" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+INFO:werkzeug: * Running on https://169.63.3.115:31102/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 228-377-282
+INFO:werkzeug:86.96.18.133 - - [24/Oct/2018 06:37:04] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:79.79.241.209 - - [24/Oct/2018 10:58:19] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:79.79.241.209 - - [24/Oct/2018 10:58:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:10:55] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:10:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:11:08] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:18] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:22] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:24] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:26] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:27] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:19:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:185.128.27.158 - - [24/Oct/2018 19:21:11] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:185.128.27.158 - - [24/Oct/2018 19:21:28] "[37mOPTIONS /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+/usr/lib/python3.5/site-packages/finetune/config.py:53: UserWarning: Failed to find available GPUS.  Falling back to CPU only mode.
+  warnings.warn("Failed to find available GPUS.  Falling back to CPU only mode.")
+Inference:   0%|          | 0/1 [00:00<?, ?it/s]INFO:werkzeug:185.128.27.158 - - [24/Oct/2018 19:21:39] "[37mOPTIONS /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][AInference: 100%|██████████| 1/1 [00:17<00:00, 17.23s/it]
+INFO:werkzeug:185.128.27.158 - - [24/Oct/2018 19:21:48] "[37mPOST /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+Inference: 100%|██████████| 1/1 [00:15<00:00, 15.41s/it]
+INFO:werkzeug:185.128.27.158 - - [24/Oct/2018 19:21:56] "[37mPOST /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:29:56] "[37mOPTIONS /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+Inference:   0%|          | 0/1 [00:00<?, ?it/s]Inference: 100%|██████████| 1/1 [00:14<00:00, 14.91s/it]
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:30:11] "[37mPOST /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:38:08] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug:76.176.144.131 - - [24/Oct/2018 19:45:05] "[37mOPTIONS /buddy311/v0.1/ HTTP/1.1[0m" 200 -
+Inference:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][A[A
+
+
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
+
+
+
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
+
+
+
+
+Inference:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A * Serving Flask app "buddy311" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+INFO:werkzeug: * Running on https://169.63.3.115:31102/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 228-377-282
+INFO:werkzeug:86.96.102.58 - - [29/Oct/2018 12:51:21] "[1m[31mGET /buddy311/v0.1/ HTTP/1.1[0m" 405 -
+INFO:werkzeug: * Detected change in '/W210_Gov_Complaints_Portal/Code/buddy311.py', reloading
+INFO:werkzeug: * Restarting with stat
+  File "buddy311.py", line 56
+    def post
+           ^
+SyntaxError: invalid syntax

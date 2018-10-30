@@ -33,25 +33,81 @@ Usage: simply implement the post method that sends in a text in JSON format in
 
 class buddy311(Resource):
 
-	model = None
 	# The POST method which receives POST http requests (data sent in JSON format)
 	# and returns the classification
 	def post(self):
 		global model
+		print("Received POST request on Open311 interface")
+
+		# if the classifier has not been loaded then load it
 		if model == None:
 			model = Classifier(max_length=512, val_interval=3000, verbose = True)
 			model = Classifier.load("/root/combined_model_20181021")
+
+		# check if the JSON description has been filled in
 		some_json = request.get_json()
+		print("Received JSON: ", some_json)
 		if some_json.get('description') == None:
 			return {'service_code': 'unknown'}
 		newTextDescription = some_json.get('description')
 		print("received: ", newTextDescription)
 		prediction = model.predict([newTextDescription])
-		return {'service_code': prediction[0]}
+		# check if the input data also contained the service code and if so replace it 
+		# and return the original message
+		if some_json.get('service_code') == None:
+			# No service code so just return that
+			print("No service code provided, returning one")
+			return {'service_code': prediction[0]}
+		else:
+			print("Service_code was provided so updating it")
+			some_json['service_code'] = prediction[0]
+			return some_json
+
+
+"""
+This class takes in requests from the google go interface
+"""
+
+class dialogflow(Resource):
+
+	def get(self):
+		print("Received get request on google interface")
+		return{'result':'Server is active'}
+
+	# The POST method which receives POST http requests (data sent in JSON format)
+	# and returns the classification
+	def post(self):
+		global model
+		print("Received POST request on google interface")
+
+		# if the classifier has not been loaded then load it
+		if model == None:
+			model = Classifier(max_length=512, val_interval=3000, verbose = True)
+			model = Classifier.load("/root/combined_model_20181021")
+
+		# check if the JSON description has been filled in
+		some_json = request.get_json()
+		if some_json.get('queryResult') == None:
+			print("Empty message text")
+			return {'fulfillmentText': 'unknown'}
+		queryResult = some_json.get('queryResult')
+		if queryResult.get('queryText') == None:
+			print("Empty message text")
+			return {'fulfillmentText': 'unknown'}
+		newTextDescription = queryResult.get('queryText')
+		print("received: ", newTextDescription)
+
+		# Predict the classification of the text
+		prediction = model.predict([newTextDescription])
+
+		# Return the result
+		print("returning: ", prediction[0])
+		return {'fulfillmentText': prediction[0]}
 
 # Map URL paths to classes that implement the http requests for these paths
 api.add_resource(test, '/')
 api.add_resource(buddy311, '/buddy311/v0.1/')
+api.add_resource(dialogflow, '/v0.1/assistant')
 
 # Enable debugging and set the port to 31101
 if __name__ == '__main__':
