@@ -109,6 +109,9 @@ api.add_resource(test, '/')
 api.add_resource(buddy311, '/buddy311/v0.1/')
 api.add_resource(dialogflow, '/v0.1/assistant')
 
-# Enable debugging and set the port to 31101
+# Set up SSL keys
+context = ('/etc/pki/tls/certs/www_buddy311_org.crt', '/etc/ssl/private/www.buddy311.org.key')
+
+# Enable debugging and set the port to 31102
 if __name__ == '__main__':
-	app.run(debug=True, port=31102, host='169.63.3.115', ssl_context='adhoc')
+	app.run(debug=True, port=31102, host='169.63.3.115', ssl_context=context) #ssl_context='adhoc')
