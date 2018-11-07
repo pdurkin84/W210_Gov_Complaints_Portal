@@ -4,6 +4,13 @@ from sanic.response import json
 from sanic_cors import CORS, cross_origin
 from finetune import Classifier
 import re, string
+import multiprocessing
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+    format='%(asctime)s %(message)s',
+	handlers=[logging.FileHandler("/tmp/buddy311.log")])
+
 
 app = Sanic()
 CORS(app)
@@ -25,7 +32,7 @@ def preProcess(complaintStart):
 
 @app.route('/', methods=['GET'])
 async def testServerAvailability(request):
-	print(request)
+	logging.debug(request)
 	return json({'result': 'Server is active'})
 
 @app.route('/buddy311/v0.1/', methods=['POST','GET','OPTIONS'])
@@ -49,19 +56,19 @@ async def classifyOpen311Complaint(request):
 		processedComplaints = list(map(lambda x: preProcess(x), request.json.get('descriptions')))
 		prediction = model.predict(processedComplaints).tolist()
 	else:
-		print("Doing simple prediction")
+		logging.debug("Doing simple prediction")
 		prediction = model.predict([preProcess(request.json.get('description'))])[0]
 
-	print("Prediction is: ", prediction)
+	logging.debug("Prediction is: ", prediction)
 
 	# If we have a service_code in the incoming request then we assume an Open311 message,
 	# so we update the service_code and return the full message.  Otherwise we just send
 	# back a new message with the service_code only
 	if request.json.get('service_code') == None:
-		print("No service code provided, returning one")
+		logging.debug("No service code provided, returning one")
 		return json({'service_code': prediction})
 	else:
-		print("Service_code was provided so updating it")
+		logging.debug("Service_code was provided so updating it")
 		request.json['service_code'] = prediction
 		return json(request.json)
 
@@ -71,23 +78,23 @@ handle calls from google assistant
 @app.route('/v0.1/assistant', methods=['POST','GET','OPTIONS'])
 async def processGoogleActionRequest(request):
 	global model
-	print("Received POST request on google interface")
+	logging.debug("Received POST request on google interface")
 
 	# Check if data provided
 	if request.json == None:
 		return json({"result", "No data in request"})
 	some_json = request.json
 	if some_json.get('queryResult') == None:
-		print("Empty message text")
+		logging.debug("Empty message text")
 		return json({'fulfillmentText': 'unknown'})
 	queryResult = some_json.get('queryResult')
 	if queryResult.get('queryText') == None:
-		print("Empty message text")
+		logging.debug("Empty message text")
 		return json({'fulfillmentText': 'unknown'})
 	newTextDescription = queryResult.get('queryText')
-	print("received: ", newTextDescription)
+	logging.debug("received: ", newTextDescription)
 	processedDescription = preProcess(newTextDescription)
-	print("pre-processed: ", processedDescription)
+	logging.debug("pre-processed: ", processedDescription)
 
 	# If the model is not already loaded then load it
 	if model == None:
@@ -98,10 +105,13 @@ async def processGoogleActionRequest(request):
 	prediction = model.predict([processedDescription])
 
 	# Return the result
-	print("returning: ", prediction[0])
+	logging.debug("returning: ", prediction[0])
 	return json({'fulfillmentText': prediction[0]})
 
 context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
-context.load_cert_chain("/etc/ssl/certs/apache-selfsigned.crt", keyfile="/etc/ssl/private/apache-selfsigned.key")
+context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
+context.load_cert_chain("/etc/ssl/certs/www_buddy311_org.crt", keyfile="/etc/ssl/private/www.buddy311.org.key")
+cpu_cores=multiprocessing.cpu_count()
+logging.debug("CPU count: " ,cpu_cores)
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=31102,ssl=context, workers=6, debug=False)
+	app.run(host='0.0.0.0', port=31102,ssl=context, workers=cpu_cores, debug=False)
