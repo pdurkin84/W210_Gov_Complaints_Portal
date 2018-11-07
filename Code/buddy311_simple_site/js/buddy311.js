@@ -1,16 +1,29 @@
 var buddy311buttonClick = function () {
 	console.log("Buddy311 button pressed");
-	var results = document.getElementById('final_span');
-	if (results.innerText == "" ) {
-		console.log("final span empty, checking interim span");
-		results = document.getElementById('interim_span');
+	var docElement = document.getElementById('myTextBox');
+	var results="";
+	if ( docElement.value == "" ) {
+		console.log("Manual entry not updated or empty: ", docElement.value);
+		docElement = document.getElementById('final_span');
+		if (docElement.innerText == "" ) {
+			console.log("final span empty, checking interim span");
+			docElement = document.getElementById('interim_span');
+		
+			if (docElement.innerText == "" ) {
+				console.log("No text, ignoring");
+				// for testing purposes remove the return here so that it continues to get classifications
+				// return;
+			} else {
+				results = docElement.innerText;
+			}
+		} else {
+			results = docElement.innerText;
+		}
+	} else {
+		results = docElement.value;
 	}
-	if (results.innerText == "" ) {
-		console.log("No text, ignoring");
-		// for testing purposes remove the return here so that it continues to get classifications
-		// return;
-	}
-	console.log("Received text: ", results.innerText);
+	
+	console.log("Received text: ", results);
 	xhttp = new XMLHttpRequest();
 	// Function called when data returns
 	xhttp.onreadystatechange = function(d) {
@@ -30,7 +43,9 @@ var buddy311buttonClick = function () {
 		//	typeLocation.style.visibility = "visible";
 		}
 	}
-	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
+	xhttp.open("POST", "https://169.63.3.124:31102/buddy311/v0.1/", true);
+//	xhttp.open("POST", "https://169.62.224.67:31102/buddy311/v0.1/", true);
+//	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
 	xhttp.setRequestHeader("Content-type", "application/json");
-	xhttp.send('{ "description":"' + results.innerText + '", "service_code": "unknown" }');
+	xhttp.send('{ "description":"' + results + '", "service_code": "unknown" }');
 }

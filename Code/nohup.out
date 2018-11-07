@@ -68,3 +68,12 @@ INFO:werkzeug: * Restarting with stat
     def post
            ^
 SyntaxError: invalid syntax
+ * Serving Flask app "buddy311" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+INFO:werkzeug: * Running on https://169.63.3.115:31102/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 228-377-282
