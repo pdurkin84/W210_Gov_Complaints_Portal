@@ -2,15 +2,11 @@ import ssl
 from sanic import Sanic
 from sanic.response import json
 from sanic_cors import CORS, cross_origin
-from finetune import Classifier
 import re, string
 import multiprocessing
-import logging
-
-logging.basicConfig(level=logging.DEBUG,
-    format='%(asctime)s %(message)s',
-	handlers=[logging.FileHandler("/tmp/buddy311.log")])
-
+import json as jsn
+from finetune import Classifier
+import os.path
 
 app = Sanic()
 CORS(app)
@@ -18,6 +14,22 @@ CORS(app)
 # Once we have workers each (sadly) must load its own model
 #model = Classifier.load("/root/combined_model_20181021")
 model=None
+
+def loadConfiguration(file):
+	with open(file) as json_data_file:
+		data=jsn.load(json_data_file)
+
+	# verify mandatory parameters and set defaults
+	if data.get('modelfile') == None or not os.path.isfile(data.get('modelfile')):
+		print("Unable to find model file, exiting")
+		exit(1)
+	if data.get('port') == None:
+		data['port'] = 31102
+	if data.get('hostip') == None:
+		data['hostip'] = "0.0.0.0"
+
+	print("Data is: ", data)
+	return data
 
 translator = str.maketrans('', '', string.punctuation) # To remove punctuation
 
@@ -32,7 +44,7 @@ def preProcess(complaintStart):
 
 @app.route('/', methods=['GET'])
 async def testServerAvailability(request):
-	logging.debug(request)
+	print(request)
 	return json({'result': 'Server is active'})
 
 @app.route('/buddy311/v0.1/', methods=['POST','GET','OPTIONS'])
@@ -56,19 +68,19 @@ async def classifyOpen311Complaint(request):
 		processedComplaints = list(map(lambda x: preProcess(x), request.json.get('descriptions')))
 		prediction = model.predict(processedComplaints).tolist()
 	else:
-		logging.debug("Doing simple prediction")
+		print("Doing simple prediction")
 		prediction = model.predict([preProcess(request.json.get('description'))])[0]
 
-	logging.debug("Prediction is: ", prediction)
+	print("Prediction is: ", prediction)
 
 	# If we have a service_code in the incoming request then we assume an Open311 message,
 	# so we update the service_code and return the full message.  Otherwise we just send
 	# back a new message with the service_code only
 	if request.json.get('service_code') == None:
-		logging.debug("No service code provided, returning one")
+		print("No service code provided, returning one")
 		return json({'service_code': prediction})
 	else:
-		logging.debug("Service_code was provided so updating it")
+		print("Service_code was provided so updating it")
 		request.json['service_code'] = prediction
 		return json(request.json)
 
@@ -78,23 +90,23 @@ handle calls from google assistant
 @app.route('/v0.1/assistant', methods=['POST','GET','OPTIONS'])
 async def processGoogleActionRequest(request):
 	global model
-	logging.debug("Received POST request on google interface")
+	print("Received POST request on google interface")
 
 	# Check if data provided
 	if request.json == None:
 		return json({"result", "No data in request"})
 	some_json = request.json
 	if some_json.get('queryResult') == None:
-		logging.debug("Empty message text")
+		print("Empty message text")
 		return json({'fulfillmentText': 'unknown'})
 	queryResult = some_json.get('queryResult')
 	if queryResult.get('queryText') == None:
-		logging.debug("Empty message text")
+		print("Empty message text")
 		return json({'fulfillmentText': 'unknown'})
 	newTextDescription = queryResult.get('queryText')
-	logging.debug("received: ", newTextDescription)
+	print("received: ", newTextDescription)
 	processedDescription = preProcess(newTextDescription)
-	logging.debug("pre-processed: ", processedDescription)
+	print("pre-processed: ", processedDescription)
 
 	# If the model is not already loaded then load it
 	if model == None:
@@ -105,13 +117,17 @@ async def processGoogleActionRequest(request):
 	prediction = model.predict([processedDescription])
 
 	# Return the result
-	logging.debug("returning: ", prediction[0])
+	print("returning: ", prediction[0])
 	return json({'fulfillmentText': prediction[0]})
 
+config = loadConfiguration('buddy311.json')
 context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
-context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
-context.load_cert_chain("/etc/ssl/certs/www_buddy311_org.crt", keyfile="/etc/ssl/private/www.buddy311.org.key")
+if config.get('cafile') != None:
+	context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
+context.load_cert_chain(config.get('crtfile'), keyfile=config.get('keyfile'))
+
 cpu_cores=multiprocessing.cpu_count()
-logging.debug("CPU count: " ,cpu_cores)
+print("CPU count: " ,cpu_cores)
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=31102,ssl=context, workers=cpu_cores, debug=False)
+	#app.run(host='0.0.0.0', port=31102,ssl=context, workers=cpu_cores, debug=False)
+	app.run(host=config.get('hostip'), port=int(config.get('port')),ssl=context, workers=cpu_cores, debug=False)
