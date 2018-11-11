@@ -120,7 +120,7 @@ async def getPendingComplaints(request):
         print("Received GET request for pending complaints")
         pendingComplaintsList = []
         try:
-            with open(config.get("pendingfile"),"rb") as f:
+            with open(config.get("pendingfile"),"r") as f:
                 csvReader = csv.reader(f)
                 pendingComplaintsList = list(csvReader)
         except Exception as e:
@@ -140,7 +140,7 @@ async def getCompleteComplaints(request):
         print("Received GET request for complete complaints")
         completeComplaintsList = []
         try:
-            with open(config.get("completefile"),"rb") as f:
+            with open(config.get("completefile"),"r") as f:
                 csvReader = csv.reader(f)
                 completeComplaintsList = list(csvReader)
         except Exception as e:
