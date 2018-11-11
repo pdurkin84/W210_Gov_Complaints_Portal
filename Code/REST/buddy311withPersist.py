@@ -105,7 +105,7 @@ async def processGoogleActionRequest(request):
     complaint = queryResult.get('queryText')
     print("received: ", complaint)
 
-    with open(config.get("pendingfile"),"ab") as f:
+    with open(config.get("pendingfile"),"a", newline='') as f:
         csvWriter = csv.writer(f, delimiter = "\t")
         csvWriter.writerow([complaint])
     
@@ -157,7 +157,7 @@ async def getCompleteComplaints(request):
             print("No complaints provided")
             return "No complaints provided"
         completedComplaintsList = some_json.get('complete')
-        with open(config.get("completefile"),"ab") as f:
+        with open(config.get("completefile"),"a", newline='') as f:
             csvWriter = csv.writer(f, delimiter = "\t")
             for complaint, classification in completedComplaintsList:
                 csvWriter.writerow([complaint, classification])
