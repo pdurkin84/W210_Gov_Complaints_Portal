@@ -1,21 +1,20 @@
 import csv,requests
-import json as jsn
 
 def main():
     url = "https://www.buddy311.org:31102"
 
     # get list of pending complaints
     r = requests.get(url + "/v1/pending")
-    pendingComplaintsList = jsn.loads(r.json()).get("pending_complaints", [])
+    pendingComplaintsList = r.json().get("pending_complaints", [])
     if not len(pendingComplaintsList):
         print("No pending complaints found")
         return
     print("Received list of pending complaints:"+ str(pendingComplaintsList))
     pendingComplaintsList = [complaint[0] for complaint in pendingComplaintsList]
-    
+
     # use the /v1/classify endpoint to classify it
     r = requests.post(url +"/v1/classify", data = {"descriptions":pendingComplaintsList})
-    responseDict = jsn.loads(r.json())
+    responseDict = r.json()
     classificationsList = responseDict.get("service_code",[])
     if not len(classificationsList):
         print("Got no classifications back")
