@@ -23,7 +23,7 @@ def main():
     print("Received list of classifications:"+ str(classificationsList))
 
     # merge the two lists together
-    results = zip(pendingComplaintsList,classificationsList)
+    results = list(zip(pendingComplaintsList,classificationsList))
     print("Merged the results:" + str(results))
 
     # save results in complete.csv, appending
