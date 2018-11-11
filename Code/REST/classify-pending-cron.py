@@ -13,7 +13,7 @@ def main():
     pendingComplaintsList = [complaint[0] for complaint in pendingComplaintsList]
 
     # use the /v1/classify endpoint to classify it
-    r = requests.post(url +"/v1/classify", data = {"descriptions":pendingComplaintsList})
+    r = requests.post(url +"/v1/complaint", data = {"descriptions":pendingComplaintsList})
     responseDict = r.json()
     classificationsList = responseDict.get("service_code",[])
     if not len(classificationsList):
