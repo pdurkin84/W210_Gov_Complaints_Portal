@@ -11,7 +11,8 @@ def main():
         print("No pending complaints found")
         return
     print("Received list of pending complaints:"+ str(pendingComplaintsList))
-
+    pendingComplaintsList = [complaint[0] for complaint in pendingComplaintsList]
+    
     # use the /v1/classify endpoint to classify it
     r = requests.post(url +"/v1/classify", data = {"descriptions":pendingComplaintsList})
     responseDict = jsn.loads(r.json())
