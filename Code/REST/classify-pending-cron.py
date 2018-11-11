@@ -1,5 +1,5 @@
 import csv,requests
-
+import json
 def main():
     url = "https://www.buddy311.org:31102"
 
@@ -13,7 +13,8 @@ def main():
     pendingComplaintsList = [complaint[0] for complaint in pendingComplaintsList]
 
     # use the /v1/classify endpoint to classify it
-    r = requests.post(url +"/v1/complaint", data = {"descriptions":pendingComplaintsList})
+    r = requests.post(url +"/v1/complaint", headers = {'Content-Type': "application/json"}, data = json.dumps({"descriptions":pendingComplaintsList}))
+    print(r)
     responseDict = r.json()
     classificationsList = responseDict.get("service_code",[])
     if not len(classificationsList):
@@ -26,7 +27,7 @@ def main():
     print("Merged the results:" + str(results))
 
     # save results in complete.csv, appending
-    requests.post(url + "/v1/complete", data = {"complete":results})
+    requests.post(url + "/v1/complete", headers = {'Content-Type': "application/json"}, data = json.dumps({"complete":results}))
     print("Saved results in complete file.")
 
     # clear pending.csv
