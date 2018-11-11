@@ -118,14 +118,18 @@ handle pending complaints (read, delete all)
 async def getPendingComplaints(request):
     if request.method == "GET":
         print("Received GET request for pending complaints")
-        with open(config.get("pendingfile"),"rb") as f:
-            csvReader = csv.reader(f)
-            pendingComplaintsList = list(csvReader)
+        pendingComplaintsList = []
+        try:
+            with open(config.get("pendingfile"),"rb") as f:
+                csvReader = csv.reader(f)
+                pendingComplaintsList = list(csvReader)
+        except Exception as e:
+            print("Error while opening pending file: "+str(e))
         return json({"pending_complaints":pendingComplaintsList})
     else:
         print("Received DELETE request for pending complaints. Clearing file")
         open(config.get("pendingfile"),"w").close()
-        return "Pending file cleared"
+        return json({"status":"Pending file cleared"})
 
 """
 handle complete complaints (read, append)
@@ -134,9 +138,13 @@ handle complete complaints (read, append)
 async def getCompleteComplaints(request):
     if request.method == "GET":
         print("Received GET request for complete complaints")
-        with open(config.get("completefile"),"rb") as f:
-            csvReader = csv.reader(f)
-            completeComplaintsList = list(csvReader)
+        completeComplaintsList = []
+        try:
+            with open(config.get("completefile"),"rb") as f:
+                csvReader = csv.reader(f)
+                completeComplaintsList = list(csvReader)
+        except Exception as e:
+            print("Error while opening complete file: "+str(e))
         return json({"complete_complaints":completeComplaintsList})
     else:
         print("Received POST request for complete complaints. Appending new complaints")
@@ -153,7 +161,7 @@ async def getCompleteComplaints(request):
             csvWriter = csv.writer(f, delimiter = "\t")
             for complaint, classification in completedComplaintsList:
                 csvWriter.writerow([complaint, classification])
-        return "Complaints written to file."
+        return json({"status":"Complaints written to file"})
 
 config = loadConfiguration('buddy311.json')
 context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
