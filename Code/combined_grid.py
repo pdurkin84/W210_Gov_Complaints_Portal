@@ -3,9 +3,10 @@ import pandas
 from sklearn.model_selection import train_test_split
 import time
 import re, string
+import numpy as np
 print("Import of packages done")
 
-filePath = "../Datasets/combined_trainingdata_20181013.tsv"
+filePath = "/root/combined_trainingdata_20181108.tsv"
 data = pandas.read_csv(filePath,sep='\t')
 print(data.shape)
 print("Loaded the data")
