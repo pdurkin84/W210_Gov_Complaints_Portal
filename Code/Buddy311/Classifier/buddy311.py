@@ -121,13 +121,14 @@ async def processGoogleActionRequest(request):
 	return json({'fulfillmentText': prediction[0]})
 
 config = loadConfiguration('buddy311.json')
-context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
-if config.get('cafile') != None:
-	context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
-context.load_cert_chain(config.get('crtfile'), keyfile=config.get('keyfile'))
+#context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
+#if config.get('cafile') != None:
+	#context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
+#context.load_cert_chain(config.get('crtfile'), keyfile=config.get('keyfile'))
 
 cpu_cores=multiprocessing.cpu_count()
 print("CPU count: " ,cpu_cores)
 if __name__ == '__main__':
 	#app.run(host='0.0.0.0', port=31102,ssl=context, workers=cpu_cores, debug=False)
-	app.run(host=config.get('hostip'), port=int(config.get('port')),ssl=context, workers=cpu_cores, debug=False)
+	#app.run(host=config.get('hostip'), port=int(config.get('port')),ssl=context, workers=cpu_cores, debug=False)
+	app.run(host=config.get('hostip'), port=int(config.get('port')),workers=cpu_cores, debug=False)
