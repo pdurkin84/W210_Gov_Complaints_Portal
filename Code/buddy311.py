@@ -114,4 +114,4 @@ context = ('/etc/pki/tls/certs/www_buddy311_org.crt', '/etc/ssl/private/www.budd
 
 # Enable debugging and set the port to 31102
 if __name__ == '__main__':
-	app.run(debug=True, port=31102, host='169.63.3.115', ssl_context=context) #ssl_context='adhoc')
+	app.run(debug=True, port=31102, host='0.0.0.0')#, ssl_context=context) #ssl_context='adhoc')
