@@ -86,7 +86,7 @@ print("Prepared training data")
 _, sampleX, _, sampleY = train_test_split(trainingData.complaint, trainingData.CATEGORY_SUB, test_size=0.1, random_state=42, stratify=trainingData.CATEGORY_SUB)
 del trainingData
 print(sampleY.shape)
-print("Prepared a stratified sample. TODO check it is truly so")
+print("Prepared a stratified sample.")
 
 trainX, testX, trainY, testY = train_test_split(sampleX, sampleY, test_size=0.2, random_state=42, stratify=sampleY)
 print(trainX.shape)
