@@ -25,7 +25,9 @@ for message in consumer:
 	response=requests.post("http://buddy311Class:31102/buddy311/v0.1/", json=message.value)
 	logging.info("Response is: %s"% response.json())
 	# update the database
-	logging.info("Response service_code is: %s" % response.json()['service_code'])
-	cursor.execute("update requests set service_code=\"%s\" where service_request_id = %d" % (response.json()['service_code'], message.value['service_request_id']))
+	service_code_probability = float(response.json()['service_code_proba'])
+	service_code = response.json()['service_code']
+	logging.info("Response service_code is: %s, probability %f" % (service_code, service_code_probability))
+	cursor.execute("update requests set service_code=\"%s\", service_code_proba=%f where service_request_id = %d" % (service_code, service_code_probability, message.value['service_request_id']))
 	mariadb_connection.commit()
 

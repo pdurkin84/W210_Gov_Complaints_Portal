@@ -16,14 +16,22 @@ import random
 from flask_cors import CORS
 from kafka import SimpleProducer, KafkaClient
 
+import logging
+
+logging.basicConfig(filename='/var/log/buddy311admin.log',
+	filemode='a',
+	format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+	datefmt='%H:%M:%S',
+	level=logging.INFO)
+
 # Configuration
 DEBUG = True
 ORGANIZATION = 'Buddy311'
 JURISDICTION = 'Buddy311.org'
 
 # Create the database connection
-mariadb_connection = mariadb.connect(host='database', user='buddy311dba', password='AlexChrisPaulStan', database='buddy311')
-cursor = mariadb_connection.cursor()
+mariadb_connection=""
+cursor=""
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"*":{"origins": "*"}})
@@ -32,6 +40,11 @@ app.config.from_envvar('GEOREPORT_SETTINGS', silent=True)
 
 kafka = KafkaClient("kafkaserver1:9092")
 producer=SimpleProducer(kafka)
+
+def connectDatabase(phost, puser, ppassword, pdatabase):
+	global mariadb_connection,cursor
+	mariadb_connection = mariadb.connect(host=phost, user=puser, password=ppassword, database=pdatabase)
+	cursor = mariadb_connection.cursor()
 
 
 @app.route('/')
@@ -138,6 +151,30 @@ def service_request(service_request_id, format):
 	else:
 		abort(404)
 
+"""
+handle calls from google assistant
+"""
+
+@app.route('/v1/assistant', methods=['POST','GET','OPTIONS'])
+async def processGoogleActionRequest(request):
+	logging.info("Received POST request from google assistant")
+
+	# Check if data provided
+	if request.json == None:
+		return json({'fulfillmentText': 'We did not receive a complaint, could you repeat that?'})
+	some_json = request.json
+	if some_json.get('queryResult') == None:
+		logging.info("Empty message text")
+		return json({'fulfillmentText': 'We did not receive a complaint, could you repeat that?'})
+	queryResult = some_json.get('queryResult')
+	if queryResult.get('queryText') == None:
+		logging.info("Empty message text")
+		return json({'fulfillmentText': 'We did not receive a complaint, could you repeat that?'})
+	complaint = queryResult.get('queryText')
+	logging.info("received: ", complaint)
+
+	sr = save({'description':complaint})
+	return json({'fulfillmentText': "Thank you, your complaint " + sr + " has been recorded and is being processed"})
 
 @app.route('/tokens/<token>.<format>')
 def token(token, format):
@@ -148,7 +185,7 @@ def token(token, format):
 
 def sendToKafka(request_data):
 	# send to kafka queue
-	print("Sending message to Kafka")
+	logging.info("Sending message to Kafka")
 	producer.send_messages("buddy311", json.dumps(request_data).encode('utf-8'))
 
 def search(service_request):
@@ -220,21 +257,33 @@ def save(service_request):
 		insert_fields_string += "media_url,"
 		insert_values_string += "\"" + request_data.get('media_url')[:1000] + "\","
 
-	print(insert_fields_string)
-	print(insert_values_string)
-	cursor.execute("INSERT INTO requests (%s) VALUES (%s)" % (insert_fields_string[:-1], insert_values_string[:-1]))
-	mariadb_connection.commit()
-	service_request_id=cursor.lastrowid
+	logging.debug(insert_fields_string)
+	logging.debug(insert_values_string)
+	try:
+		cursor.execute("INSERT INTO requests (%s) VALUES (%s)" % (insert_fields_string[:-1], insert_values_string[:-1]))
+		mariadb_connection.commit()
+		service_request_id=cursor.lastrowid
+	except:
+		# assuming a dropped connection so reconnect and try again
+		connectDatabase(phost='database', puser='buddy311dba', ppassword='AlexChrisPaulStan', pdatabase='buddy311')
+		cursor.execute("INSERT INTO requests (%s) VALUES (%s)" % (insert_fields_string[:-1], insert_values_string[:-1]))
+		mariadb_connection.commit()
+		service_request_id=cursor.lastrowid
+
+	# If our service code is unknown then send it on to Kafka
 	if request_data.get('service_code').upper() == "UNKNOWN" or request_data.get('service_code') == None:
 		request_data['service_request_id'] = service_request_id
 		sendToKafka(request_data)
 	else:
-		print("Service code has value ", request_data.get('service_code'))
+		logging.info("Service code has value ", request_data.get('service_code'))
 	return service_request_id
 
 
 context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
 context.load_verify_locations('/etc/ssl/certs/www_buddy311_org.ca-bundle')
 context = ('/etc/pki/tls/certs/www_buddy311_org.crt', '/etc/ssl/private/www.buddy311.org.key')
+
+connectDatabase(phost='database', puser='buddy311dba', ppassword='AlexChrisPaulStan', pdatabase='buddy311')
+
 if __name__ == '__main__':
-	app.run(debug=True, host='169.63.3.115', port=31102,ssl_context=context)
+	app.run(debug=False, host='169.63.3.115', port=31102,ssl_context=context)
