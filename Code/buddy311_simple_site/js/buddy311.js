@@ -44,8 +44,8 @@ var buddy311buttonClick = function () {
 		}
 	}
 //	xhttp.open("POST", "https://169.63.3.124:31102/buddy311/v0.1/", true);
-//	xhttp.open("POST", "https://169.62.224.67:31102/buddy311/v0.1/", true);
-	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
+	xhttp.open("POST", "https://169.63.3.115:31102/requests.json", true);
+//	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
 	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send('{ "description":"' + results + '", "service_code": "unknown" }');
 }
