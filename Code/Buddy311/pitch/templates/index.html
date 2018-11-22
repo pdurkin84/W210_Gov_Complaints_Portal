@@ -162,11 +162,34 @@
                 </div>
             </div>
 
+
             <div class="row">
-                <form action="process.php" id="demo-form" method="post" class="contact-form">
+                <!-- <form action="process.php" id="demo-form" method="post" class="contact-form"> -->
+                <form id="demo-form" class="contact-form">
                     <textarea name="message" id="form_message" name="form-message" rows="5" class="form-control" placeholder="Your message" required="required" style="margin-top: 25px;"></textarea>
-                    <button type="submit" class="button">Submit</button>
+                    <!-- <button type="submit" class="button">Submit</button> -->
+                    <div class="row">
+                            <button type="submit" class="contact-form button" onclick="buddy311buttonClick();;return false;">Submit</button>
+                    </div>
                 </form>
+            </div>
+
+            <!-- Return labels from classifier -->
+            <div id="results">
+                <span id="final_span" class="final"></span>
+                <span id="interim_span" class="interim"></span>
+                <p>
+            </div>
+
+            <p>
+            <div id="returnclass-wrap">
+                <span id="returnclass-type" style="visibility: hidden">
+                    nothing
+                </span>
+                <p>
+                <span id="returnclass-subtype" style="visibility: hidden">
+                    nothing
+                </span>
             </div>
 
         </div>

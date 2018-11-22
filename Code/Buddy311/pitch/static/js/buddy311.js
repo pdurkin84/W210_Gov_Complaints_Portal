@@ -1,7 +1,13 @@
 var buddy311buttonClick = function () {
 	console.log("Buddy311 button pressed");
-	var docElement = document.getElementById('myTextBox');
+	var docElement = document.getElementById('form_message');
 	var results="";
+
+	// DEBUG
+	console.log("docElement", docElement);
+	console.log("docElement value", docElement.value);
+	
+
 	if ( docElement.value == "" ) {
 		console.log("Manual entry not updated or empty: ", docElement.value);
 		docElement = document.getElementById('final_span');
@@ -14,10 +20,12 @@ var buddy311buttonClick = function () {
 				// for testing purposes remove the return here so that it continues to get classifications
 				// return;
 			} else {
-				results = docElement.innerText;
+				// results = docElement.innerText;
+				results = docElement.value;
 			}
 		} else {
-			results = docElement.innerText;
+			// results = docElement.innerText;
+			results = docElement.value;
 		}
 	} else {
 		results = docElement.value;
@@ -44,12 +52,15 @@ var buddy311buttonClick = function () {
 		}
 	}
 //	xhttp.open("POST", "https://169.63.3.124:31102/buddy311/v0.1/", true);
-<<<<<<< HEAD
-	xhttp.open("POST", "https://169.63.3.115:31102/buddy311/v0.1/", true);
-=======
-	xhttp.open("POST", "https://169.63.3.115:31102/requests.json", true);
->>>>>>> db6bf16a2c91af265fbc502d54410a6362289511
+// <<<<<<< HEAD
+	// xhttp.open("POST", "https://169.63.3.115:31102/buddy311/v0.1/", true);
+// =======
+	// xhttp.open("POST", "https://169.63.3.115:31102/requests.json", true);
+	xhttp.open("POST", "https://buddy311.org:31102/requests.json", true);
+
+// >>>>>>> db6bf16a2c91af265fbc502d54410a6362289511
 //	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
 	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send('{ "description":"' + results + '", "service_code": "unknown" }');
+
 }

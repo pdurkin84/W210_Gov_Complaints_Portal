@@ -97,17 +97,17 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.onstart = function() {
     recognizing = true;
     showInfo('info_speak_now');
-    start_img.src = '../images/mic-animate.gif';
+    start_img.src = '../static/images/mic-animate.gif';
   };
 
   recognition.onerror = function(event) {
     if (event.error == 'no-speech') {
-      start_img.src = '../images/mic.gif';
+      start_img.src = '../static/images/mic.gif';
       showInfo('info_no_speech');
       ignore_onend = true;
     }
     if (event.error == 'audio-capture') {
-      start_img.src = '../images/mic.gif';
+      start_img.src = '../static/images/mic.gif';
       showInfo('info_no_microphone');
       ignore_onend = true;
     }
@@ -126,7 +126,7 @@ if (!('webkitSpeechRecognition' in window)) {
     if (ignore_onend) {
       return;
     }
-    start_img.src = '../images/mic.gif';
+    start_img.src = '../static/images/mic.gif';
     if (!final_transcript) {
       showInfo('info_start');
       return;
@@ -225,7 +225,7 @@ function startButton(event) {
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
   form_message.value = '';
-  start_img.src = '../images/mic-slash.gif';
+  start_img.src = '../static/images/mic-slash.gif';
   showInfo('info_allow');
   showButtons('none');
   start_timestamp = event.timeStamp;
