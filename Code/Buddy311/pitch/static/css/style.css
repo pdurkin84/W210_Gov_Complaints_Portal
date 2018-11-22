@@ -51,7 +51,7 @@ a:focus,
 a:hover {
     text-decoration: none;
     outline: none;
-    color: #000000;
+    /*color: #000000;*/
 }
 
 img {
@@ -547,6 +547,12 @@ input:-webkit-autofill:focus {
     flex: 0 0 100%;
     max-width: 100%;
 }
+
+.prediction_div {
+    margin: 15px 0px 0px 20px;
+    vertical-align: middle;
+}
+
 /**
 *Caption-slider
 **/

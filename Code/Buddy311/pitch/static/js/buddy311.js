@@ -2,10 +2,12 @@ var buddy311buttonClick = function () {
 	console.log("Buddy311 button pressed");
 	var docElement = document.getElementById('form_message');
 	var results="";
+	var resultElement = document.getElementById('prediction_div');
+	var resultSpan = document.getElementById('prediction_text');
 
 	// DEBUG
-	console.log("docElement", docElement);
-	console.log("docElement value", docElement.value);
+	// console.log("docElement", docElement);
+	// console.log("docElement value", docElement.value);
 	
 
 	if ( docElement.value == "" ) {
@@ -25,12 +27,27 @@ var buddy311buttonClick = function () {
 			}
 		} else {
 			// results = docElement.innerText;
-			results = docElement.value;
+			// results = docElement.value;
+			results = 'docElement.value'; // test
 		}
 	} else {
-		results = docElement.value;
+		// results = docElement.value;
+		results = 'Illegal Dumping'; // test
+
+		resultSpan.innerHTML = results;
+
+		if (resultElement.style.display == "none") {
+			resultElement.style.display = "flex";
+		} 
 	}
 	
+	console.log("resultElement", resultElement);
+	console.log("resultElement style display", resultElement.style.display);
+
+
+
+
+
 	console.log("Received text: ", results);
 	xhttp = new XMLHttpRequest();
 	// Function called when data returns
@@ -56,7 +73,9 @@ var buddy311buttonClick = function () {
 	// xhttp.open("POST", "https://169.63.3.115:31102/buddy311/v0.1/", true);
 // =======
 	// xhttp.open("POST", "https://169.63.3.115:31102/requests.json", true);
-	xhttp.open("POST", "https://buddy311.org:31102/requests.json", true);
+
+	// xhttp.open("POST", "https://buddy311.org:31102/requests.json", true);
+	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);
 
 // >>>>>>> db6bf16a2c91af265fbc502d54410a6362289511
 //	xhttp.open("POST", "https://buddy311.org:31102/buddy311/v0.1/", true);

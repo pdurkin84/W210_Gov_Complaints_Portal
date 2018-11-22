@@ -135,6 +135,7 @@
                 </div>
             </div>
 
+            <!-- Troubleshooting messages to user -->
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
                     <div class="info-wrap">
@@ -162,26 +163,47 @@
                 </div>
             </div>
 
-
+            <!-- Form and submit button -->
             <div class="row">
                 <!-- <form action="process.php" id="demo-form" method="post" class="contact-form"> -->
                 <form id="demo-form" class="contact-form">
                     <textarea name="message" id="form_message" name="form-message" rows="5" class="form-control" placeholder="Your message" required="required" style="margin-top: 25px;"></textarea>
                     <!-- <button type="submit" class="button">Submit</button> -->
                     <div class="row">
+                        <div>
                             <button type="submit" class="contact-form button" onclick="buddy311buttonClick();;return false;">Submit</button>
+                                        <!-- Return labels from classifier -->
+                        </div>
+                        
+                        <!-- Display predicted label -->
+                        <div class="prediction_div" id="prediction_div" style="display: none;">  <!-- display:none hides div until submit button is run -->
+
+                            <h2 style="margin-bottom: 0px; font-weight: 400; font-size: 1vw;">Problem Category: <span class="label label-info" id="prediction_text" style="letter-spacing: 4px; font-size: 1vw;"></span></h2>
+<!--                           <p id="prediction_header">Predicted Label</p>
+                          <p id="prediction_text"></p> -->
+
+                        </div>
+<!-- 
+                        <div id="results">
+                            <div class="row">
+                                <span id="final_span" class="final" style="visibility: hidden"></span>
+                                <span id="interim_span" class="interim"></span>
+                                <p>
+                            </div>
+                        </div> -->
+
                     </div>
                 </form>
             </div>
 
             <!-- Return labels from classifier -->
-            <div id="results">
+<!--             <div id="results">
                 <span id="final_span" class="final"></span>
                 <span id="interim_span" class="interim"></span>
                 <p>
-            </div>
+            </div> -->
 
-            <p>
+<!--             <p>
             <div id="returnclass-wrap">
                 <span id="returnclass-type" style="visibility: hidden">
                     nothing
@@ -190,7 +212,7 @@
                 <span id="returnclass-subtype" style="visibility: hidden">
                     nothing
                 </span>
-            </div>
+            </div> -->
 
         </div>
     </section>
